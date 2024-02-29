@@ -35,27 +35,29 @@ public class Program
 
           BloggingContext db = new();
 
-          db.users.ExecuteDelete();
-          db.Articles.ExecuteDelete();
-          db.Blogs.ExecuteDelete();
+          
 
           db.users.Add(new User { Name = "Ahmed" });
           db.SaveChanges();
+
+          db.categories.Add(new Category { name = "Crime" });
+
 
           db.Blogs.Add(new Blog { name = "Bloggers1" });
           db.Blogs.Add(new Blog { name = "Bloggers2" });
           db.SaveChanges();
 
-           Blog blog = db.Blogs.Where(b => b.name == "Bloggers1").First();
+          Blog blog = db.Blogs.Where(b => b.name == "Bloggers1").First();
 
-           db.users.First().Articles.Add(new Article { title = "Mord i Malmö", Blog = blog });
-           db.users.First().Articles.Add(new Article { title = "Systemutveckling is rising", Blog = blog });
-           db.users.First().Articles.Add(new Article { title = "Bull news", Blog = blog });
+          db.users.First().Articles.Add(new Article { title = "Mord i Malmö", Blog = blog });
 
-           db.SaveChanges();
+          db.categories.First().Articles.Add(db.users.First().Articles.Where(a => a.title == "Mord i Malmö").First());
+          db.SaveChanges();
 
-          Console.WriteLine(db.Articles.First().User.Articles.First().Blog.Articles.First().title);
-        }
+          //Console.WriteLine(db.categories.First().Articles.First().User.Articles.First().Blog.Articles.First().title);
+          Console.WriteLine(db.Articles.First().title);
+
+    }
 
 
 
@@ -65,9 +67,5 @@ public class Program
 
 
 
-//db.categories.First().Articles.Add(db.users.First().Articles.Where(a => a.title == "article1").First());
-//db.SaveChanges();
 
-//db.Blogs.First().Articles.Add(db.users.First().Articles.Where(a => a.title == "article1").First());
-//db.SaveChanges();
 
