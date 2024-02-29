@@ -54,10 +54,10 @@ public class Program
           db.categories.First().Articles.Add(db.users.First().Articles.Where(a => a.title == "Mord i Malmö").First());
           db.SaveChanges();
 
-          //Console.WriteLine(db.categories.First().Articles.First().User.Articles.First().Blog.Articles.First().title);
-          Console.WriteLine(db.Articles.First().title);
+          Console.WriteLine(db.categories.First().Articles.First().User.Articles.First().Blog.Articles.First().title);
+          
 
-    }
+        }
 
 
 
